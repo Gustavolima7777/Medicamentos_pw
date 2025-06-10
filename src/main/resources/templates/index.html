@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--<div th:insert="~{commons/fragments :: header}"></div>-->
+<!--<div th:insert="~{commons/fragments :: menu(${msg})}">-->
+<!--</div>-->
+
+<!--<p th:text="${msg}"></p>-->
+
+<h1>Farmacia</h1>
+<h2>Cadastro <a href="/cadastro">aqui</a>.</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Nome</th>
+        <th>Fabricante</th>
+        <th>Preço</th>
+        <th>Quantidade</th>
+        <th>Imagem</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="j : ${listaMedicamentos}">
+        <td th:text="${m.nome}"></td>
+        <td th:text="${m.fabricante}"></td>
+        <td th:text="${m.preco}"></td>
+        <td th:text="${m.quantidade}"></td>
+<!--        <td > <img th:src="'/images/'+${j.imagemUri}" /></td>-->
+        <td>
+            <a th:href="@{'/editar/' + ${j.id}}"> EDITAR </a>
+            <a th:href="@{'/deletar/' + ${j.id}}"> DELETAR </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
