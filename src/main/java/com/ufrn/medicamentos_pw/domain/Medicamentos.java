@@ -8,12 +8,16 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Entity
 @Data
+@AllArgsConstructor
+
 public class Medicamentos {
 
     @Id
@@ -42,5 +46,91 @@ public class Medicamentos {
 
     private String imgUrl;
 
-    private Date isDeleted;
+    private String isDeleted;
+
+    public Medicamentos(String dosagem, String imgUrl, String laboratorio, boolean necessitaReceita, String nomeComercial, Double preco, String principioAtivo) {
+        this.dosagem = dosagem;
+        this.imgUrl = imgUrl;
+        this.isDeleted = null;
+        this.laboratorio = laboratorio;
+        this.necessitaReceita = necessitaReceita;
+        this.nomeComercial = nomeComercial;
+        this.preco = preco;
+        this.principioAtivo = principioAtivo;
+    }
+
+    public Medicamentos() {
+    }
+
+    public String getDosagem() {
+        return dosagem;
+    }
+
+    public void setDosagem(String dosagem) {
+        this.dosagem = dosagem;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public String getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(String isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    public String getLaboratorio() {
+        return laboratorio;
+    }
+
+    public void setLaboratorio(String laboratorio) {
+        this.laboratorio = laboratorio;
+    }
+
+    public boolean isNecessitaReceita() {
+        return necessitaReceita;
+    }
+
+    public void setNecessitaReceita(boolean necessitaReceita) {
+        this.necessitaReceita = necessitaReceita;
+    }
+
+    public String getNomeComercial() {
+        return nomeComercial;
+    }
+
+    public void setNomeComercial(String nomeComercial) {
+        this.nomeComercial = nomeComercial;
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+
+    public String getPrincipioAtivo() {
+        return principioAtivo;
+    }
+
+    public void setPrincipioAtivo(String principioAtivo) {
+        this.principioAtivo = principioAtivo;
+    }
 }

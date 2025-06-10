@@ -13,7 +13,6 @@ public class MedicamentoService {
 
     private final MedicamentoRepository repository;
 
-    // O Spring injeta o repositório aqui automaticamente
     public MedicamentoService(MedicamentoRepository repository) {
         this.repository = repository;
     }
@@ -39,12 +38,12 @@ public class MedicamentoService {
     }
 
 
-    public void softDelete(Long id) {
-        repository.findById(id).ifPresent(medicamento -> {
-            medicamento.setIsDeleted(new Date());
-            repository.save(medicamento);
-        });
-    }
+//    public void softDelete(Long id) {
+//        repository.findById(id).ifPresent(medicamento -> {
+//            medicamento.setIsDeleted(new Date());
+//            repository.save(medicamento);
+//        });
+//    }
 
 
     public void restore(Long id) {

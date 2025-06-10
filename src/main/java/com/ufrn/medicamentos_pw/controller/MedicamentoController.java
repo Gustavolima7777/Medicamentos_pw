@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -20,10 +21,11 @@ import java.util.Random;
 public class MedicamentoController {
 
     private final MedicamentoService medicamentoService;
-    private final CarrinhoService carrinhoService; // 1. INJEÇÃO DO NOVO SERVIÇO
+    private final CarrinhoService carrinhoService;
 
     private final List<String> imagensDisponiveis = List.of(
-            "/images/remedio1.jpg", "/images/remedio2.jpg", "/images/remedio3.jpg", "/images/remedio4.png"
+            "/static/remedio1.png"
+            //"/images/remedio2.jpg", "/images/remedio3.jpg", "/images/remedio4.png"
     );
 
     // 2. CONSTRUTOR ATUALIZADO
@@ -49,35 +51,43 @@ public class MedicamentoController {
     @GetMapping("/cadastro")
     public String getCadastro(Model model) {
         model.addAttribute("medicamento", new Medicamentos());
-        return "form";
+        return "cadastroMedicamento";
     }
 
     @GetMapping("/editar")
     public String getEditar(@RequestParam Long id, Model model) {
         medicamentoService.findById(id).ifPresent(medicamento -> model.addAttribute("medicamento", medicamento));
-        return "form";
+        return "cadastroMedicamento";
     }
 
     @PostMapping("/salvar")
-    public String postSalvar(@Valid Medicamentos medicamento, BindingResult result, RedirectAttributes attrs) {
+    public String postSalvar(
+            @ModelAttribute("medicamento") @Valid Medicamentos medicamento,
+            BindingResult result,
+            RedirectAttributes attrs) {
+        System.out.println("Entrou no postSalvar, medicamento: " + medicamento);
+
         if (result.hasErrors()) {
-            return "form";
+            return "cadastroMedicamento";
         }
+
         if (medicamento.getId() == null) {
             Random random = new Random();
             medicamento.setImgUrl(imagensDisponiveis.get(random.nextInt(imagensDisponiveis.size())));
         }
+
         medicamentoService.save(medicamento);
         attrs.addFlashAttribute("success", "Medicamento salvo com sucesso!");
-        return "redirect:/admin";
+        return "cadastroMedicamento";
     }
 
-    @GetMapping("/deletar")
-    public String getDeletar(@RequestParam Long id, RedirectAttributes attrs) {
-        medicamentoService.softDelete(id);
-        attrs.addFlashAttribute("success", "Medicamento deletado com sucesso.");
-        return "redirect:/admin";
-    }
+
+//    @GetMapping("/deletar")
+//    public String getDeletar(@RequestParam Long id, RedirectAttributes attrs) {
+//        medicamentoService.softDelete(id);
+//        attrs.addFlashAttribute("success", "Medicamento deletado com sucesso.");
+//        return "redirect:/admin";
+//    }
 
     @GetMapping("/restaurar")
     public String getRestaurar(@RequestParam Long id, RedirectAttributes attrs) {
