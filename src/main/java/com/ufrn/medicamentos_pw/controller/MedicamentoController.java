@@ -86,18 +86,15 @@ public class MedicamentoController {
         return "redirect:/index";
     }
 
-    @GetMapping("/restaurar")
-    public String getRestaurar(@RequestParam Long id, RedirectAttributes attrs) {
+    @GetMapping("/restaurar/{id}")
+    public String getRestaurar(@PathVariable Long id, RedirectAttributes attrs) {
         medicamentoService.restore(id);
         attrs.addFlashAttribute("success", "Medicamento restaurado com sucesso.");
         return "redirect:/admin";
     }
 
-
-
-    @GetMapping("/adicionarCarrinho")
+    @GetMapping("/carrinho")
     public String adicionarCarrinho(@RequestParam Long id, HttpSession session) {
-        // 3. O controller agora apenas DELEGA a lógica para o CarrinhoService
         carrinhoService.adicionarItem(id, session);
         return "redirect:/index";
     }

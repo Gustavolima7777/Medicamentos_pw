@@ -19,8 +19,7 @@
             <th scope="col">Princípio Ativo</th>
             <th scope="col">Preço</th>
             <th scope="col">Dosagem</th>
-            <th scope="col">Receita?</th>
-            <th scope="col">Ativo?</th>
+            <th scope="col">Receita</th>
             <th scope="col">Imagem</th>
             <th scope="col">Ações</th>
         </tr>
@@ -34,13 +33,11 @@
             <td th:text="${m.preco}"></td>
             <td th:text="${m.dosagem}"></td>
             <td th:text="${m.necessitaReceita}"></td>
-            <td th:text="${m.isDeleted}"></td>
             <td>
                 <img th:src="@{${m.imgUrl}}" alt="Imagem" style="max-width: 80px; max-height: 80px;" class="img-thumbnail"/>
             </td>
             <td>
-                <a th:href="@{/editar/{id}(id=${m.id})}" class="btn btn-sm btn-primary me-1">Editar</a>
-                <a th:href="@{/deletar/{id}(id=${m.id})}" class="btn btn-sm btn-danger">Deletar</a>
+                <a th:href="@{/carrinho}" class="btn btn-sm btn-primary me-1">adicinar ao carrinho</a>
             </td>
         </tr>
         </tbody>
