@@ -28,7 +28,7 @@ public class MedicamentoService {
     }
 
 
-    public List<Medicamentos> listAvailableMedicamentos() {
+    public List<Medicamentos> listarMedicamentosNaoDeletados() {
         return repository.findAllByIsDeletedNull();
     }
 
@@ -38,12 +38,12 @@ public class MedicamentoService {
     }
 
 
-//    public void softDelete(Long id) {
-//        repository.findById(id).ifPresent(medicamento -> {
-//            medicamento.setIsDeleted(new Date());
-//            repository.save(medicamento);
-//        });
-//    }
+    public void softDelete(Long id) {
+        repository.findById(id).ifPresent(medicamento -> {
+            medicamento.setIsDeleted(true);
+            repository.save(medicamento);
+        });
+    }
 
 
     public void restore(Long id) {

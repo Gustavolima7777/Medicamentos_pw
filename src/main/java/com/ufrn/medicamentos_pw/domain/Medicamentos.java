@@ -46,7 +46,7 @@ public class Medicamentos {
 
     private String imgUrl;
 
-    private String isDeleted;
+    private Boolean isDeleted;
 
     public Medicamentos(String dosagem, String imgUrl, String laboratorio, boolean necessitaReceita, String nomeComercial, Double preco, String principioAtivo) {
         this.dosagem = dosagem;
@@ -86,11 +86,11 @@ public class Medicamentos {
         this.imgUrl = imgUrl;
     }
 
-    public String getIsDeleted() {
+    public Boolean getIsDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(String isDeleted) {
+    public void setIsDeleted(Boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
 

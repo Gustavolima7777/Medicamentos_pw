@@ -33,7 +33,7 @@ public class MedicamentoController {
 
     @GetMapping({"/", "/index"})
     public String getIndex(Model model, HttpSession session) {
-        model.addAttribute("medicamentos", medicamentoService.listAllMedicamentos());
+        model.addAttribute("medicamentos", medicamentoService.listarMedicamentosNaoDeletados());
         // A quantidade de itens agora vem do serviço
         model.addAttribute("tamanhoCarrinho", carrinhoService.getCarrinho(session).size());
         return "index";
@@ -79,12 +79,12 @@ public class MedicamentoController {
     }
 
 
-//    @GetMapping("/deletar")
-//    public String getDeletar(@RequestParam Long id, RedirectAttributes attrs) {
-//        medicamentoService.softDelete(id);
-//        attrs.addFlashAttribute("success", "Medicamento deletado com sucesso.");
-//        return "redirect:/admin";
-//    }
+    @GetMapping("/deletar/{id}")
+    public String getDeletar(@PathVariable Long id, RedirectAttributes attrs) {
+        medicamentoService.softDelete(id);
+        attrs.addFlashAttribute("success", "Medicamento deletado com sucesso.");
+        return "redirect:/index";
+    }
 
     @GetMapping("/restaurar")
     public String getRestaurar(@RequestParam Long id, RedirectAttributes attrs) {

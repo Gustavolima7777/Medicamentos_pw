@@ -10,19 +10,24 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 
     <div th:replace="commons/header :: header"></div>
-    <table>
+    <table class="table table-success">
         <thead>
         <tr>
-            <th>Nome</th>
-            <th>Fabricante</th>
-            <th>Preço</th>
-            <th>Quantidade</th>
-            <th>Imagem</th>
-            <th>Ações</th>
+            <th scope="col">#</th>
+            <th scope="col">Nome Comercial</th>
+            <th scope="col">Fabricante</th>
+            <th scope="col">Princípio Ativo</th>
+            <th scope="col">Preço</th>
+            <th scope="col">Dosagem</th>
+            <th scope="col">Receita?</th>
+            <th scope="col">Ativo?</th>
+            <th scope="col">Imagem</th>
+            <th scope="col">Ações</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="m : ${medicamentos}">
+        <tr th:each="m, iterStat : ${medicamentos}">
+            <th scope="row" th:text="${iterStat.index + 1}"></th>
             <td th:text="${m.nomeComercial}"></td>
             <td th:text="${m.laboratorio}"></td>
             <td th:text="${m.principioAtivo}"></td>
@@ -30,13 +35,15 @@
             <td th:text="${m.dosagem}"></td>
             <td th:text="${m.necessitaReceita}"></td>
             <td th:text="${m.isDeleted}"></td>
-            <td > <img th:src="${m.imgUrl}" /></td>
             <td>
-                <a th:href="@{/editar/{id}(id=${m.id})}">Editar</a>
-                <a th:href="@{'/deletar/' + ${m.id}}"> Deletar </a>
+                <img th:src="@{${m.imgUrl}}" alt="Imagem" style="max-width: 80px; max-height: 80px;" class="img-thumbnail"/>
+            </td>
+            <td>
+                <a th:href="@{/editar/{id}(id=${m.id})}" class="btn btn-sm btn-primary me-1">Editar</a>
+                <a th:href="@{/deletar/{id}(id=${m.id})}" class="btn btn-sm btn-danger">Deletar</a>
             </td>
         </tr>
         </tbody>
     </table>
-    </body>
+</body>
 </html>
