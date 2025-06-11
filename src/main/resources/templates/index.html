@@ -1,44 +1,42 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
 </head>
 <body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 
-<!--<div th:insert="~{commons/fragments :: header}"></div>-->
-<!--<div th:insert="~{commons/fragments :: menu(${msg})}">-->
-<!--</div>-->
-
-<!--<p th:text="${msg}"></p>-->
-
-<h1>Farmacia</h1>
-<h2>Cadastro <a href="/cadastro">aqui</a>.</h2>
-
-,<table>
-    <thead>
-    <tr>
-        <th>Nome</th>
-        <th>Fabricante</th>
-        <th>Preço</th>
-        <th>Quantidade</th>
-        <th>Imagem</th>
-        <th>Ações</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="j : ${listaMedicamentos}">
-        <td th:text="${m.nome}"></td>
-        <td th:text="${m.fabricante}"></td>
-        <td th:text="${m.preco}"></td>
-        <td th:text="${m.quantidade}"></td>
-<!--        <td > <img th:src="'/images/'+${j.imagemUri}" /></td>-->
-        <td>
-            <a th:href="@{'/editar/' + ${j.id}}"> EDITAR </a>
-            <a th:href="@{'/deletar/' + ${j.id}}"> DELETAR </a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-</body>
+    <div th:replace="commons/header :: header"></div>
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Fabricante</th>
+            <th>Preço</th>
+            <th>Quantidade</th>
+            <th>Imagem</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="m : ${medicamentos}">
+            <td th:text="${m.nomeComercial}"></td>
+            <td th:text="${m.laboratorio}"></td>
+            <td th:text="${m.principioAtivo}"></td>
+            <td th:text="${m.preco}"></td>
+            <td th:text="${m.dosagem}"></td>
+            <td th:text="${m.necessitaReceita}"></td>
+            <td th:text="${m.isDeleted}"></td>
+            <td > <img th:src="${m.imgUrl}" /></td>
+            <td>
+                <a th:href="@{/editar/{id}(id=${m.id})}">Editar</a>
+                <a th:href="@{'/deletar/' + ${m.id}}"> Deletar </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </body>
 </html>

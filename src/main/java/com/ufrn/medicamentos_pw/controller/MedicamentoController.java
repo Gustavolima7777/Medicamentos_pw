@@ -8,10 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -24,7 +21,7 @@ public class MedicamentoController {
     private final CarrinhoService carrinhoService;
 
     private final List<String> imagensDisponiveis = List.of(
-            "/static/remedio1.png"
+            "static/remedio1.png"
             //"/images/remedio2.jpg", "/images/remedio3.jpg", "/images/remedio4.png"
     );
 
@@ -36,7 +33,7 @@ public class MedicamentoController {
 
     @GetMapping({"/", "/index"})
     public String getIndex(Model model, HttpSession session) {
-        model.addAttribute("medicamentos", medicamentoService.listAvailableMedicamentos());
+        model.addAttribute("medicamentos", medicamentoService.listAllMedicamentos());
         // A quantidade de itens agora vem do serviço
         model.addAttribute("tamanhoCarrinho", carrinhoService.getCarrinho(session).size());
         return "index";
@@ -54,8 +51,8 @@ public class MedicamentoController {
         return "cadastroMedicamento";
     }
 
-    @GetMapping("/editar")
-    public String getEditar(@RequestParam Long id, Model model) {
+    @GetMapping("/editar/{id}")
+    public String getEditar( Model model, @PathVariable Long id) {
         medicamentoService.findById(id).ifPresent(medicamento -> model.addAttribute("medicamento", medicamento));
         return "cadastroMedicamento";
     }
