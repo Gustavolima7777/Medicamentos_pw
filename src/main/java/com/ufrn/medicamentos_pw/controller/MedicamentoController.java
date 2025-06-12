@@ -24,8 +24,6 @@ public class MedicamentoController {
             "static/remedio1.png"
             //"/images/remedio2.jpg", "/images/remedio3.jpg", "/images/remedio4.png"
     );
-
-    // 2. CONSTRUTOR ATUALIZADO
     public MedicamentoController(MedicamentoService medicamentoService, CarrinhoService carrinhoService) {
         this.medicamentoService = medicamentoService;
         this.carrinhoService = carrinhoService;
@@ -34,7 +32,6 @@ public class MedicamentoController {
     @GetMapping({"/", "/index"})
     public String getIndex(Model model, HttpSession session) {
         model.addAttribute("medicamentos", medicamentoService.listarMedicamentosNaoDeletados());
-        // A quantidade de itens agora vem do serviço
         model.addAttribute("tamanhoCarrinho", carrinhoService.getCarrinho(session).size());
         return "index";
     }
@@ -93,8 +90,8 @@ public class MedicamentoController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/carrinho")
-    public String adicionarCarrinho(@RequestParam Long id, HttpSession session) {
+    @GetMapping("/adicionarItemcarrinho/{id}")
+    public String adicionarCarrinho(@PathVariable Long id, HttpSession session) {
         carrinhoService.adicionarItem(id, session);
         return "redirect:/index";
     }

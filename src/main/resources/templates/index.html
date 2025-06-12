@@ -37,7 +37,7 @@
                 <img th:src="@{${m.imgUrl}}" alt="Imagem" style="max-width: 80px; max-height: 80px;" class="img-thumbnail"/>
             </td>
             <td>
-                <a th:href="@{/carrinho}" class="btn btn-sm btn-primary me-1">adicinar ao carrinho</a>
+                <a th:href="@{/adicionarItemcarrinho/{id}(id=${m.id})}" class="btn btn-sm btn-primary me-1">adicinar ao carrinho</a>
             </td>
         </tr>
         </tbody>
