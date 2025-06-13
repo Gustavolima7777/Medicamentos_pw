@@ -22,4 +22,6 @@ public class DomainUsuario {
     private String senha;
 
     private String email;
+
+    private String role;
 }

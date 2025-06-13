@@ -107,13 +107,10 @@ public class MedicamentoController {
         model.addAttribute("total", carrinhoService.getValorTotal(session));
         return "carrinho";
     }
-
+    //falta fazer
     @GetMapping("/finalizarCompra")
     public String finalizarCompra(HttpSession session) {
-        // A lógica de limpar o carrinho também é delegada
         carrinhoService.limparCarrinho(session);
-        // Ou, se quiser invalidar a sessão inteira (logout, etc.):
-        // session.invalidate();
         return "redirect:/index";
     }
 }
